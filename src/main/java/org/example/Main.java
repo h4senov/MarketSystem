@@ -1,9 +1,9 @@
 package org.example;
 
+import org.example.models.Product;
 import org.example.operation.ProductOperation;
 import org.example.operation.SaleOperation;
 
-import java.awt.*;
 import java.util.Scanner;
 
 
@@ -13,9 +13,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-
-
-
 
         Scanner scanner = new Scanner(System.in);
         boolean sorgu = true;
@@ -66,7 +63,7 @@ public class Main {
                     productOperation.addProductOperation();
                     break;
                 case 2:
-                    productOperation.byBarCodeProductUpdateOpearion();
+                    productOperation.byBarCodeProductUpdateOperation();
                     break;
                 case 3:
                     productOperation.ByDeleteProductBarCode();
@@ -115,25 +112,25 @@ public class Main {
                     saleOperation.saleAddOperation();
                     break;
                 case 2:
-                    saleOperation.returnSale();
+                    saleOperation.returnSaleOperation();
                     break;
                 case 3:
-                    saleOperation.deleteSaleByNumber();
+                    saleOperation.deleteSaleByIDOperation();
                     break;
                 case 4:
-                    saleOperation.showSale();
+                    saleOperation.showSaleOperation();
                     break;
                 case 5:
                     System.out.println("System eror");
                     break;
                 case 6:
-                    saleOperation.byAmountShowSaleOperation();
+                    saleOperation.findSaleBetweenByAmountOperation();
                     break;
                 case 7:
-                    System.out.println("System Eror ");
+                     saleOperation.saleDateOperation();
                     break;
                 case 8:
-                    saleOperation.byNumberForSaleOperation();
+                    saleOperation.byIDForSaleOperation();
                     break;
                 case 9:
                     sorgu = false;

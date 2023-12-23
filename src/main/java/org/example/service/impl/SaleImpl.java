@@ -17,47 +17,49 @@ public class SaleImpl implements SaleInter {
     static List<Sale> saleList = new ArrayList<>();
     private static ProductImpl productImpl = new ProductImpl();
 
+
+    @Override
+    public Sale findSaleByDate(LocalDateTime saleDate) {
+        return saleList.stream().filter(sale -> sale.getTime().equals(saleDate)).
+                findFirst().orElseThrow(() -> new NoSuchElementException(" Bele bir mehsul tapilmadi "));
+    }
+
     @Override
     public Sale saleAdd(Sale sale) {
-
         saleList.add(sale);
-
         return sale;
-
     }
 
     @Override
     public List<Sale> showSale() {
-
         return saleList;
     }
 
 
     @Override
     public List<Sale> totalSale() {
-
         return saleList;
     }
 
     @Override
-    public Sale returnProduct(String productBarcode, Integer productCount, Integer saleNumber) {
+    public Sale returnProduct(String productBarcode, Integer productCount, Integer saleID) {
 
-        Product product = productImpl.findProductByBarCode(productBarcode);
-        product.setCount(product.getCount() + productCount);
-        productImpl.deleteProductByBarCode(productBarcode);
-        productImpl.addProduct(product);
+        Product product = productImpl.findProductByBarCode(productBarcode); // barCoduna gore mehsulu tap
+        product.setCount(product.getCount() + productCount); //qaytarilan mehsulun sayini set eleyib ,
+        productImpl.deleteProductByBarCode(productBarcode);  // silib ve
+        productImpl.addProduct(product); // elave eleyirik ki listde yenilensin
 
 
-        Sale sales = saleList.stream().filter(sale -> sale.getNumber().equals(saleNumber)).findFirst().get();
+        Sale sales = saleList.stream().filter(sale -> sale.getId().equals(saleID)).findFirst().get(); // sale de id'e gore satisi tapmag
 
-        SaleItem saleItems = sales.getSaleItem().stream().filter(saleItem -> saleItem.getProduct()
-                .getBarCode().equals(productBarcode)).findFirst().get();
+        SaleItem saleItems = sales.getSaleItems().stream().filter(saleItem -> saleItem.getProduct()
+                .getBarCode().equals(productBarcode)).findFirst().get(); // barcoduna gore saleitems tapmaq
 
         saleList.remove(sales);
         saleItems.setCount(saleItems.getCount() - productCount);
 
-        sales.setAmount(sales.getAmount()-productCount*product.getPrice()); // qiymet meselesi
-        sales.getSaleItem().add(saleItems);
+        sales.setAmount(sales.getAmount() - productCount * product.getPrice()); // qaytarilacaq  mehsulun sayi qiymet meselesi
+        sales.getSaleItems().add(saleItems);
         saleList.add(sales);
 
         return sales;
@@ -72,16 +74,16 @@ public class SaleImpl implements SaleInter {
     }
 
     @Override
-    public boolean deleteSaleByNumber(Integer numberSale) { // test
-        Sale sale = findSaleByNumber(numberSale);
+    public boolean deleteSaleByID(Integer ID) { // test
+        Sale sale = findSaleByID(ID);
         saleList.remove(sale);
         return true;
     }
 
     @Override
-    public Sale findSaleByNumber(Integer Number) {
+    public Sale findSaleByID(Integer ID) {
 
-        return saleList.stream().filter(sale -> sale.getNumber().equals(Number))
+        return saleList.stream().filter(sale -> sale.getId().equals(ID))
                 .findFirst().orElseThrow(() -> new NoSuchElementException(" Bele bir nomrede satis tapilmadir "));
     }
 

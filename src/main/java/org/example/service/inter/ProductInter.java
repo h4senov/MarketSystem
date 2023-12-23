@@ -12,7 +12,7 @@ public interface ProductInter {
 
     List<Product> showProducts();
 
-    Product updateByBarCodeProduct(String barCode, String name, int count, Double price, Category category);
+    Product updateByProduct(Product product);
 
     List<Product> findProductByCategory(Category category);
 

@@ -22,22 +22,33 @@ public class ProductImpl implements ProductInter {
         return productList;
     }
 
+
     @Override
     public List<Product> showProducts() {
         return productList;
     }
 
     @Override
-    public Product updateByBarCodeProduct(String barCode, String name, int count, Double price, Category category) {
+    public Product updateByProduct(Product product) {
 
-        for (Product products : productList
-        ) {
-            if (products.getBarCode().equals(barCode)) {
-                products.setName(name);
-                products.setCount(count);
-                products.setPrice(price);
-                products.setCategory(category);
-            }
+        Product product1 = findProductByBarCode(product.getBarCode());
+        if (product.getId() != null) {
+            product1.setId(product.getId());
+        }
+        if (product.getName() != null) {
+            product1.setName(product.getName());
+        }
+        if (product.getPrice() != null) {
+            product1.setPrice(product.getPrice());
+        }
+        if (product.getBarCode() != null) {
+            product1.setBarCode(product.getBarCode());
+        }
+        if (product.getCategory() != null) {
+            product1.setCategory(product.getCategory());
+        }
+        if (product.getCount() != null) {
+            product1.setCount(product.getCount());
         }
         return product;
     }
@@ -62,11 +73,11 @@ public class ProductImpl implements ProductInter {
 
     @Override
     public Product findProductByName(String name) {
-      return   productList.stream().filter(product1 -> product1.getName().equals(name))
-                      .findFirst().orElseThrow(() -> new NoSuchElementException(" Mehsul tapilmadi "));
+        return productList.stream().filter(product1 -> product1.getName().equals(name))
+                .findFirst().orElseThrow(() -> new NoSuchElementException(" Mehsul tapilmadi "));
     }
 
-//HashMap
+    //HashMap
     @Override
     public Product deleteProductByBarCode(String barCode) {
 
@@ -78,7 +89,7 @@ public class ProductImpl implements ProductInter {
 
     @Override
     public Product findProductByBarCode(String barCode) {
-         return productList.stream().filter(product1 -> product1.getBarCode().equals(barCode))
+        return productList.stream().filter(product1 -> product1.getBarCode().equals(barCode))
                 .findFirst().orElseThrow(() -> new NoSuchElementException(" Bele bir element tapila bilmedi "));
     }
 

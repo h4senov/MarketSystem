@@ -8,8 +8,11 @@ import java.util.Scanner;
 
 public class ProductOperation {
     static ProductImpl productImpl = new ProductImpl();
+    static Integer idCount = 0;
 
     public void addProductOperation() {
+
+        idCount++;
 
         Scanner scanner = new Scanner(System.in);
         Scanner input = new Scanner(System.in);
@@ -36,41 +39,39 @@ public class ProductOperation {
         Integer category = scanner.nextInt();
         switch (category) {
             case 1: {
-                Product product = new Product(name, price, Category.ELECTRONICS, count, barCode);
+                Product product = new Product(idCount, name, price, Category.ELECTRONICS, count, barCode, null);
                 productImpl.addProduct(product);
                 break;
             }
             case 2: {
-                Product product = new Product(name, price, Category.CLOTHING, count, barCode);
+                Product product = new Product(idCount, name, price, Category.CLOTHING, count, barCode, null);
                 productImpl.addProduct(product);
                 break;
             }
             case 3: {
-                Product product = new Product(name, price, Category.FOOD_AND_BEVERAGES, count, barCode);
+                Product product = new Product(idCount, name, price, Category.FOOD_AND_BEVERAGES, count, barCode, null);
                 productImpl.addProduct(product);
                 break;
             }
             case 4: {
-                Product product = new Product(name, price, Category.BEAUTY_AND_PERSONAL_CARE, count, barCode);
+                Product product = new Product(idCount, name, price, Category.BEAUTY_AND_PERSONAL_CARE, count, barCode, null);
                 productImpl.addProduct(product);
                 break;
             }
             case 5: {
-                Product product = new Product(name, price, Category.BOOKS, count, barCode);
+                Product product = new Product(idCount, name, price, Category.BOOKS, count, barCode, null);
                 productImpl.addProduct(product);
                 break;
             }
             case 6: {
-                Product product = new Product(name, price, Category.TOYS_AND_GAMES, count, barCode);
+                Product product = new Product(idCount, name, price, Category.TOYS_AND_GAMES, count, barCode, null);
                 productImpl.addProduct(product);
                 break;
             }
             default:
 
-                for (int i = 0; i < 3; i++) {
-                    System.out.println(" Daxil edilen reqem sehvdir. Zehmet olmasa duzgun ededi secin ");
+                System.out.println(" Daxil edilen reqem sehvdir. Zehmet olmasa duzgun ededi secin ");
 
-                }
 
         }
 
@@ -78,23 +79,34 @@ public class ProductOperation {
     }
 
     public void showProduct() {
-        System.out.println("  Mehsullarimiz ");
+        System.out.println("  Mehsullarimiz: ");
 
         System.out.println(productImpl.showProducts());
     }
 
-    public void byBarCodeProductUpdateOpearion() {
+    public void byBarCodeProductUpdateOperation() {
         Scanner scanner = new Scanner(System.in);
-        Scanner input = new Scanner(System.in);
-        System.out.println(" Axtardiginiz mehsulun barkodunu daxil et ");
+
+        System.out.println(productImpl.showProducts());
+
+
+        System.out.println(" \n" +
+                "Axtardiginiz mehsulun barkodunu daxil et ");
         String barCode = scanner.nextLine();
 
+//        productImpl.findProductByBarCode(barCode);
+
+        System.out.println(" Mehsulun ID-ni deyis ");
+        Integer productID = scanner.nextInt();
+
         System.out.println(" Mehsulun adini deyis ");
-        String name = scanner.nextLine();
+        String prductName = scanner.nextLine();
+
         System.out.println(" Mehsulun qiymetini deyis ");
-        Double price = scanner.nextDouble();
+        Double productPrice = scanner.nextDouble();
+
         System.out.println(" Mehsulun sayini deyis et ");
-        Integer count = scanner.nextInt();
+        Integer productCount = scanner.nextInt();
 
         System.out.println(" Kateqoriyasini sec \n" +
                 "    1.ELECTRONICS,\n" +
@@ -108,27 +120,40 @@ public class ProductOperation {
         Integer category = scanner.nextInt();
         switch (category) {
             case 1: {
-                productImpl.updateByBarCodeProduct(barCode, name, count, price, Category.ELECTRONICS);
+                Category category1 = Category.ELECTRONICS;
+                Product product = new Product(productID, prductName, productPrice, category1, productCount, barCode, null);
+                productImpl.updateByProduct(product);
+
                 break;
             }
             case 2: {
-                productImpl.updateByBarCodeProduct(barCode, name, count, price, Category.CLOTHING);
+                Category category2 = Category.CLOTHING;
+                Product product2 = new Product(productID, prductName, productPrice, category2, productCount, barCode, null);
+                productImpl.updateByProduct(product2);
                 break;
             }
             case 3: {
-                productImpl.updateByBarCodeProduct(barCode, name, count, price, Category.FOOD_AND_BEVERAGES);
+                Category category3 = Category.FOOD_AND_BEVERAGES;
+                Product product3 = new Product(productID, prductName, productPrice, category3, productCount, barCode, null);
+                productImpl.updateByProduct(product3);
                 break;
             }
             case 4: {
-                productImpl.updateByBarCodeProduct(barCode, name, count, price, Category.BEAUTY_AND_PERSONAL_CARE);
+                Category category4 = Category.BEAUTY_AND_PERSONAL_CARE;
+                Product product4 = new Product(productID, prductName, productPrice, category4, productCount, barCode, null);
+                productImpl.updateByProduct(product4);
                 break;
             }
             case 5: {
-                productImpl.updateByBarCodeProduct(barCode, name, count, price, Category.BOOKS);
+                Category category5 = Category.BOOKS;
+                Product product5 = new Product(productID, prductName, productPrice, category5, productCount, barCode, null);
+                productImpl.updateByProduct(product5);
                 break;
             }
             case 6: {
-                productImpl.updateByBarCodeProduct(barCode, name, count, price, Category.TOYS_AND_GAMES);
+                Category category6 = Category.TOYS_AND_GAMES;
+                Product product6 = new Product(productID, prductName, productPrice, category6, productCount, barCode, null);
+                productImpl.updateByProduct(product6);
                 break;
             }
             default:
@@ -158,19 +183,23 @@ public class ProductOperation {
                 break;
             }
             case 2: {
-                System.out.println( productImpl.findProductByCategory(Category.CLOTHING));;
+                System.out.println(productImpl.findProductByCategory(Category.CLOTHING));
+                ;
                 break;
             }
             case 3: {
-                System.out.println(productImpl.findProductByCategory(Category.FOOD_AND_BEVERAGES));;
+                System.out.println(productImpl.findProductByCategory(Category.FOOD_AND_BEVERAGES));
+                ;
                 break;
             }
             case 4: {
-                System.out.println(productImpl.findProductByCategory(Category.BEAUTY_AND_PERSONAL_CARE));;
+                System.out.println(productImpl.findProductByCategory(Category.BEAUTY_AND_PERSONAL_CARE));
+                ;
                 break;
             }
             case 5: {
-                System.out.println( productImpl.findProductByCategory(Category.BOOKS));;
+                System.out.println(productImpl.findProductByCategory(Category.BOOKS));
+                ;
                 break;
             }
             case 6: {
